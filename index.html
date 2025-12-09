@@ -602,6 +602,37 @@
             color: var(--text-muted);
         }
 
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--text-primary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-light);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
         @media (max-width: 900px) {
             .about-content {
                 grid-template-columns: 1fr;
@@ -1044,6 +1075,10 @@
         <p>Built by Vincent Sam Ngobeh © 2025</p>
     </footer>
 
+    <button class="back-to-top" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+    </button>
+
     <script>
         const navToggle = document.querySelector('.nav-toggle');
         const navLinks = document.querySelector('.nav-links');
@@ -1083,6 +1118,20 @@
                     target.scrollIntoView({ behavior: 'smooth' });
                 }
             });
+        });
+
+        const backToTop = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
